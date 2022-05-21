@@ -1,15 +1,33 @@
 #include <iostream>
 #include <random>
 
+int getGuessedNumber(int count) {
+
+    while(true){
+    std::cout << "Guess #" << count << ": ";
+    int guess{};
+    std::cin >> guess;
+    if (std::cin.fail())
+    {
+        std::cin.clear(); // normal operation mode
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // remove if bad input
+
+        continue; // try again
+    }
+
+     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+     return guess;
+    }
+}
+
 bool guessGame(int guesses, int num) {
     for (int count{ 1 }; count <= guesses; ++count) {
-        std::cout << "Guess #" << count << ": ";
-        int guess{};
-        std::cin >> guess;
+        int guess{ getGuessedNumber(count) };
+
         if (guess > num)
-            std::cout << "Your guess " << guess << " is too high!";
+            std::cout << "Your guess " << guess << " is too high! ";
         else if (guess < num)
-            std::cout << "Your guess " << guess << " is too low!";
+            std::cout << "Your guess " << guess << " is too low! ";
         else
             return true;
     }
